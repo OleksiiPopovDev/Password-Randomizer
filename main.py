@@ -32,13 +32,14 @@ class RandomPassword:
 
         print('=' * 40)
         print("Password Length: %s" % length)
-        print("New Password: %s" % generated_pass)
+        print("Generated Password: \033[1;33m%s\033[0m" % generated_pass)
         print('=' * 40)
 
     def __ask_password_length(self) -> int:
         print('=' * 40)
         input_length = input(
-            "How many symbols must have your password? (Default length \033[1m%d\033[0m symbols): "
+            "\t\033[0;36mHow many symbols must have your password? " +
+            "(Default length \033[1;36m%d\033[0;36m symbols):\033[0m "
             % self.PASSWORD_LENGTH
         ) or str(self.PASSWORD_LENGTH)
 
@@ -52,13 +53,13 @@ class RandomPassword:
     def __ask_complexity_password(self) -> str:
         complexity = self.ALPHABETS
 
-        if (input('Add uppercase letter? [Y/n]') or 'Y') in ['Y', 'y']:
+        if (input('\t\033[0;36mUse uppercase letter? [\033[1;36mY\033[0;36m/n]:\033[0m ') or 'Y') in ['Y', 'y']:
             complexity += self.ALPHABETS.upper()
 
-        if (input('Add numbers? [Y/n]') or 'Y') in ['Y', 'y']:
+        if (input('\t\033[0;36mUse numbers? [\033[1;36mY\033[0;36m/n]:\033[0m ') or 'Y') in ['Y', 'y']:
             complexity += self.NUMBERS
 
-        if (input('Add special chars? [Y/n]') or 'Y') in ['Y', 'y']:
+        if (input('\t\033[0;36mUse special chars? [\033[1;36mY\033[0;36m/n]:\033[0m ') or 'Y') in ['Y', 'y']:
             complexity += self.SPECIALS
 
         return complexity
