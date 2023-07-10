@@ -1,5 +1,6 @@
 import random
 import sys
+import pyperclip
 
 
 class RandomPassword:
@@ -18,9 +19,12 @@ class RandomPassword:
             "\\_|  \\__,_|___/___/\\____/\\___|_| |_|"
         )
 
-        self.__run(without_asks='--no-asks' in sys.argv)
+        self.__run(
+            without_asks='--no-asks' in sys.argv,
+            to_clipboard='--clipboard' in sys.argv
+        )
 
-    def __run(self, without_asks: bool = False):
+    def __run(self, without_asks: bool = False, to_clipboard: bool = False):
         if without_asks:
             length = self.PASSWORD_LENGTH
             complexity = self.ALPHABETS + self.ALPHABETS.upper() + self.NUMBERS + self.SPECIALS
@@ -34,6 +38,11 @@ class RandomPassword:
         print("Password Length: %s" % length)
         print("Generated Password: \033[1;33m%s\033[0m" % generated_pass)
         print('=' * 40)
+
+        self.__ask_copy_to_clipboard(
+            generated_password=generated_pass,
+            ask=to_clipboard
+        )
 
     def __ask_password_length(self) -> int:
         print('=' * 40)
@@ -63,6 +72,13 @@ class RandomPassword:
             complexity += self.SPECIALS
 
         return complexity
+
+    @staticmethod
+    def __ask_copy_to_clipboard(generated_password: str, ask: bool = True):
+        question: str = '\t\033[0;36mCopy password to clipboard? [y/\033[1;36mN\033[0;36m]:\033[0m '
+
+        if ask or (input(question) or 'N') in ['Y', 'y']:
+            pyperclip.copy(generated_password)
 
 
 try:
