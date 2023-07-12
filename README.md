@@ -1,5 +1,5 @@
 # Password-Randomizer
-![How it works](./hiw.gif "How it works")
+<img src="./hiw.gif" alt="How it works" style="width:100%;" />
 
 ## Install Requirements
 ```shell
